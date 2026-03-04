@@ -1,20 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace _АИС__Книжного_магазина.Models
+namespace BookshopApp.Models
 {
     public class User
     {
-        public int IdUser { get; set; }
-        public int IdPosition { get; set; }
-        public string LastnameUser { get; set; }
-        public string NameUser { get; set; }
-        public string? MiddlenameUser { get; set; }
-        public string PhoneUser { get; set; }
-        public Position Position { get; set; }
-        public List<Transaction> Transactions { get; set; }
+        [Key]
+        public int ID_user { get; set; }
+
+        [Required, MaxLength(100)]
+        public string login { get; set; } = "";
+
+        [Required, MaxLength(256)]
+        public string password { get; set; } = "";
+
+        [Required, MaxLength(50)]
+        public string role { get; set; } = "cashier"; // "admin" or "cashier"
+
+        public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+
+        public override string ToString() => $"{login} ({role})";
     }
 }

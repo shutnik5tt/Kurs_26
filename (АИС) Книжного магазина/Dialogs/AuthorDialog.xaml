@@ -1,0 +1,42 @@
+<Window x:Class="BookshopApp.Dialogs.AuthorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Автор" Height="270" Width="340"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Grid Margin="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Фамилия:" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="TxtLastName" Height="26"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Имя:" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="TxtFirstName" Height="26"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Отчество:" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="TxtMiddleName" Height="26"/>
+
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="Дата рожд.:" VerticalAlignment="Center"/>
+        <DatePicker Grid.Row="6" Grid.Column="1" x:Name="DpBirth" Height="26"/>
+
+        <StackPanel Grid.Row="10" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Сохранить" Width="90" Margin="0,0,8,0" Click="BtnSave_Click" IsDefault="True"/>
+            <Button Content="Отмена"    Width="80" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

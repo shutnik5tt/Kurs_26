@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace _АИС__Книжного_магазина.Models
+namespace BookshopApp.Models
 {
     public class Transaction
     {
-        public int IdTransaction { get; set; }
-        public int? IdUser { get; set; }
-        public string PaymentTypeTransaction { get; set; }
-        public decimal AmountTransaction { get; set; }
-        public string StatusTransaction { get; set; }
-        public User? User { get; set; }
-        public List<TransactionBookCopy> TransactionBookCopies { get; set; }
+        [Key]
+        public int ID_transaction { get; set; }
+
+        public int ID_user { get; set; }
+        public User User { get; set; } = null!;
+
+        public DateTime sale_date { get; set; } = DateTime.Now;
+
+        [Required, MaxLength(50)]
+        public string payment_type { get; set; } = ""; // "cash", "card"
+
+        public ICollection<BookTransaction> BookTransactions { get; set; } = new List<BookTransaction>();
     }
 }

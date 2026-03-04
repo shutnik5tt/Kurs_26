@@ -1,0 +1,151 @@
+<Window x:Class="BookshopApp.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Книжный магазин — АИС" Height="620" Width="1000"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <!-- Верхняя панель -->
+        <DockPanel DockPanel.Dock="Top" Margin="8,6,8,4">
+            <TextBlock x:Name="TxtUserInfo" FontSize="13" VerticalAlignment="Center"/>
+            <Button Content="Выйти" Width="70" HorizontalAlignment="Right"
+                    Click="BtnLogout_Click"/>
+        </DockPanel>
+
+        <TabControl x:Name="TabMain" Margin="4">
+
+            <!-- ===== Авторы ===== -->
+            <TabItem Header="Авторы">
+                <DockPanel Margin="6">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                        <Button Content="Добавить" Width="90" Margin="0,0,6,0" Click="BtnAuthorAdd_Click"/>
+                        <Button Content="Изменить" Width="90" Margin="0,0,6,0" Click="BtnAuthorEdit_Click"/>
+                        <Button Content="Удалить"  Width="90" Margin="0,0,6,0" Click="BtnAuthorDelete_Click"/>
+                        <Button Content="Обновить" Width="90" Click="BtnAuthorRefresh_Click"/>
+                        <TextBox x:Name="TxtAuthorSearch" Width="180" Margin="16,0,4,0"
+                                 VerticalContentAlignment="Center" TextChanged="TxtAuthorSearch_TextChanged"/>
+                        <TextBlock Text="поиск" VerticalAlignment="Center" Foreground="Gray"/>
+                    </StackPanel>
+                    <DataGrid x:Name="GridAuthors" AutoGenerateColumns="False"
+                              IsReadOnly="True" SelectionMode="Single"
+                              CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID"         Binding="{Binding ID_author}"  Width="50"/>
+                            <DataGridTextColumn Header="Фамилия"    Binding="{Binding last_name}"  Width="150"/>
+                            <DataGridTextColumn Header="Имя"        Binding="{Binding first_name}" Width="130"/>
+                            <DataGridTextColumn Header="Отчество"   Binding="{Binding middle_name}" Width="130"/>
+                            <DataGridTextColumn Header="Дата рожд." Binding="{Binding birth_date, StringFormat=dd.MM.yyyy}" Width="110"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+            <!-- ===== Книги ===== -->
+            <TabItem Header="Книги">
+                <DockPanel Margin="6">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                        <Button Content="Добавить" Width="90" Margin="0,0,6,0" Click="BtnBookAdd_Click"/>
+                        <Button Content="Изменить" Width="90" Margin="0,0,6,0" Click="BtnBookEdit_Click"/>
+                        <Button Content="Удалить"  Width="90" Margin="0,0,6,0" Click="BtnBookDelete_Click"/>
+                        <Button Content="Обновить" Width="90" Click="BtnBookRefresh_Click"/>
+                        <TextBox x:Name="TxtBookSearch" Width="180" Margin="16,0,4,0"
+                                 VerticalContentAlignment="Center" TextChanged="TxtBookSearch_TextChanged"/>
+                        <TextBlock Text="поиск" VerticalAlignment="Center" Foreground="Gray"/>
+                    </StackPanel>
+                    <DataGrid x:Name="GridBooks" AutoGenerateColumns="False"
+                              IsReadOnly="True" SelectionMode="Single"
+                              CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID"         Binding="{Binding ID_book}"    Width="50"/>
+                            <DataGridTextColumn Header="Название"   Binding="{Binding title}"      Width="200"/>
+                            <DataGridTextColumn Header="Дата выхода" Binding="{Binding release_date, StringFormat=dd.MM.yyyy}" Width="110"/>
+                            <DataGridTextColumn Header="Цена (руб.)" Binding="{Binding unit_price}" Width="100"/>
+                            <DataGridTextColumn Header="Остаток"    Binding="{Binding stock_quantity}" Width="80"/>
+                            <DataGridTextColumn Header="Описание"   Binding="{Binding description}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+            <!-- ===== Авторы-Книги ===== -->
+            <TabItem Header="Авторы — Книги">
+                <DockPanel Margin="6">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                        <Button Content="Добавить" Width="90" Margin="0,0,6,0" Click="BtnAbAdd_Click"/>
+                        <Button Content="Удалить"  Width="90" Margin="0,0,6,0" Click="BtnAbDelete_Click"/>
+                        <Button Content="Обновить" Width="90" Click="BtnAbRefresh_Click"/>
+                    </StackPanel>
+                    <DataGrid x:Name="GridAuthorBooks" AutoGenerateColumns="False"
+                              IsReadOnly="True" SelectionMode="Single"
+                              CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID"      Binding="{Binding ID_author_book}" Width="50"/>
+                            <DataGridTextColumn Header="Автор"   Binding="{Binding Author.FullName}" Width="220"/>
+                            <DataGridTextColumn Header="Книга"   Binding="{Binding Book.title}"     Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+            <!-- ===== Пользователи (только admin) ===== -->
+            <TabItem Header="Пользователи" x:Name="TabUsers">
+                <DockPanel Margin="6">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                        <Button Content="Добавить" Width="90" Margin="0,0,6,0" Click="BtnUserAdd_Click"/>
+                        <Button Content="Изменить" Width="90" Margin="0,0,6,0" Click="BtnUserEdit_Click"/>
+                        <Button Content="Удалить"  Width="90" Margin="0,0,6,0" Click="BtnUserDelete_Click"/>
+                        <Button Content="Обновить" Width="90" Click="BtnUserRefresh_Click"/>
+                    </StackPanel>
+                    <DataGrid x:Name="GridUsers" AutoGenerateColumns="False"
+                              IsReadOnly="True" SelectionMode="Single"
+                              CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID"    Binding="{Binding ID_user}" Width="50"/>
+                            <DataGridTextColumn Header="Логин" Binding="{Binding login}"   Width="160"/>
+                            <DataGridTextColumn Header="Роль"  Binding="{Binding role}"    Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+            <!-- ===== Транзакции ===== -->
+            <TabItem Header="Продажи">
+                <DockPanel Margin="6">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                        <Button Content="Новая продажа" Width="110" Margin="0,0,6,0" Click="BtnTransactionAdd_Click"/>
+                        <Button Content="Просмотр"      Width="90"  Margin="0,0,6,0" Click="BtnTransactionView_Click"/>
+                        <Button Content="Удалить"        Width="90"  Margin="0,0,6,0" Click="BtnTransactionDelete_Click"/>
+                        <Button Content="Обновить"       Width="90"  Click="BtnTransactionRefresh_Click"/>
+                    </StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="6"/>
+                            <RowDefinition Height="160"/>
+                        </Grid.RowDefinitions>
+                        <DataGrid Grid.Row="0" x:Name="GridTransactions" AutoGenerateColumns="False"
+                                  IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False"
+                                  SelectionChanged="GridTransactions_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID"          Binding="{Binding ID_transaction}" Width="50"/>
+                                <DataGridTextColumn Header="Дата"        Binding="{Binding sale_date, StringFormat=dd.MM.yyyy HH:mm}" Width="140"/>
+                                <DataGridTextColumn Header="Кассир"      Binding="{Binding User.login}"     Width="130"/>
+                                <DataGridTextColumn Header="Оплата"      Binding="{Binding payment_type}"   Width="100"/>
+                                <DataGridTextColumn Header="Сумма"       Binding="{Binding TotalSum}"       Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <GridSplitter Grid.Row="1" Height="6" HorizontalAlignment="Stretch"/>
+                        <DataGrid Grid.Row="2" x:Name="GridTransactionItems" AutoGenerateColumns="False"
+                                  IsReadOnly="True" CanUserAddRows="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Книга"       Binding="{Binding Book.title}"  Width="*"/>
+                                <DataGridTextColumn Header="Кол-во"      Binding="{Binding quantity}"    Width="80"/>
+                                <DataGridTextColumn Header="Сумма (руб.)" Binding="{Binding total_price}" Width="110"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </DockPanel>
+            </TabItem>
+
+        </TabControl>
+    </DockPanel>
+</Window>

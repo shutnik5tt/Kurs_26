@@ -1,0 +1,61 @@
+<Window x:Class="BookshopApp.Dialogs.TransactionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Новая продажа" Height="520" Width="600"
+        ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner">
+    <DockPanel Margin="10">
+        <!-- Тип оплаты -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+            <TextBlock Text="Тип оплаты:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <ComboBox x:Name="CmbPayment" Width="120" Height="26">
+                <ComboBoxItem Content="Наличные"    IsSelected="True"/>
+                <ComboBoxItem Content="Безналичные"/>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Добавление позиции -->
+        <GroupBox DockPanel.Dock="Top" Header="Добавить позицию" Margin="0,0,0,8" Padding="6">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" x:Name="CmbBook" DisplayMemberPath="title"
+                          Height="26" SelectionChanged="CmbBook_SelectionChanged"/>
+                <TextBlock Grid.Column="2" x:Name="TxtPrice" VerticalAlignment="Center" TextAlignment="Center"/>
+                <StackPanel Grid.Column="4" Orientation="Horizontal">
+                    <TextBox x:Name="TxtQty" Width="44" Height="26" Text="1"/>
+                    <Button Content="+" Width="30" Margin="6,0,0,0" Height="26" Click="BtnAddItem_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- Кнопки -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+            <TextBlock x:Name="TxtTotal" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,16,0"/>
+            <Button Content="Провести" Width="90" Margin="0,0,8,0" Click="BtnSave_Click" IsDefault="True"/>
+            <Button Content="Отмена"   Width="80" IsCancel="True"/>
+        </StackPanel>
+
+        <!-- Список позиций -->
+        <DataGrid x:Name="GridItems" AutoGenerateColumns="False"
+                  CanUserAddRows="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Книга"   Binding="{Binding BookTitle}" Width="*"/>
+                <DataGridTextColumn Header="Кол-во"  Binding="{Binding Quantity}"  Width="70"/>
+                <DataGridTextColumn Header="Цена"    Binding="{Binding UnitPrice}" Width="90"/>
+                <DataGridTextColumn Header="Сумма"   Binding="{Binding TotalPrice}" Width="90"/>
+                <DataGridTemplateColumn Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="✕" Width="28" Click="BtnRemoveItem_Click" Tag="{Binding}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

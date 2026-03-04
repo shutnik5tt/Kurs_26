@@ -1,18 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace _АИС__Книжного_магазина.Models
+namespace BookshopApp.Models
 {
     public class Author
     {
-        public int IdAuthor { get; set; }
-        public string LastnameAuthor { get; set; }
-        public string NameAuthor { get; set; }
-        public string? MiddlenameAuthor { get; set; }
-        public int? BirthYearAuthor { get; set; }
-        public List<BookAuthor> BookAuthors { get; set; }
+        [Key]
+        public int ID_author { get; set; }
+
+        [Required, MaxLength(100)]
+        public string last_name { get; set; } = "";
+
+        [Required, MaxLength(100)]
+        public string first_name { get; set; } = "";
+
+        [MaxLength(100)]
+        public string? middle_name { get; set; }
+
+        public DateTime birth_date { get; set; }
+
+        public ICollection<AuthorBook> AuthorBooks { get; set; } = new List<AuthorBook>();
+
+        public string FullName =>
+            string.IsNullOrWhiteSpace(middle_name)
+                ? $"{last_name} {first_name}"
+                : $"{last_name} {first_name} {middle_name}";
+
+        public override string ToString() => FullName;
     }
 }

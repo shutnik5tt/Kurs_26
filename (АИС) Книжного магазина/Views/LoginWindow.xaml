@@ -1,0 +1,31 @@
+<Window x:Class="BookshopApp.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Книжный магазин — Вход" Height="220" Width="360"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Книжный магазин" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+        <TextBlock Grid.Row="2" Text="Логин:"/>
+        <TextBox Grid.Row="4" x:Name="TxtLogin" Height="26"/>
+
+        <TextBlock Grid.Row="6" Text="Пароль:"/>
+        <PasswordBox Grid.Row="8" x:Name="TxtPassword" Height="26"/>
+
+        <Button Grid.Row="8" Content="Войти" Width="80" HorizontalAlignment="Right"
+                VerticalAlignment="Center" Click="BtnLogin_Click" Margin="0,0,0,0"
+                IsDefault="True"/>
+    </Grid>
+</Window>
